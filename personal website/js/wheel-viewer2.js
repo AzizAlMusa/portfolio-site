@@ -1,6 +1,6 @@
 
 console.log(url);
-import { Lensflare, LensflareElement } from (url + "js/Lensflare.js");
+import { Lensflare, LensflareElement } from url + "js/Lensflare.js";
 
 (function () {
 
