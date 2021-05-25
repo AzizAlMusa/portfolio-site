@@ -5,7 +5,7 @@ import { Lensflare, LensflareElement } from "./Lensflare.js";
 (function () {
 
   var url = window.location.href;
-console.log(url);
+  console.log(url);
   var scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
   var camera = new THREE.PerspectiveCamera(
@@ -197,10 +197,11 @@ scene.add(PointLight2);
     //wheel.rotation.x += 0.002;
     //wheel.rotation.y += 0.002;
     //wheel.rotation. += 0.004;
-    wheel.rotation.z += 0.0015;
-    wheel.position.y = 3 + 0.1 * Math.sin(0.002 * time);
-    if (wheel.position.z > -10) wheel.position.z -= 0.05;
-
+    if(wheel){
+      wheel.rotation.z += 0.0015;
+      wheel.position.y = 3 + 0.1 * Math.sin(0.002 * time);
+      if (wheel.position.z > -10) wheel.position.z -= 0.05;
+    }
     //wheel.rotation.y += 0.02;
 
     /*
