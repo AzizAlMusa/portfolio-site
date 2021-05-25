@@ -132,9 +132,9 @@
 
   var animate = function (time) {
     requestAnimationFrame(animate);
-
-    pivot.rotation.z += 0.002;
-
+    if(pivot){
+      pivot.rotation.z += 0.002;
+    }
     controls.update();
     renderer.render(scene, camera);
   };
