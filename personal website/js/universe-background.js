@@ -46,7 +46,7 @@ for (let i = 0; i < 6000; i++) {
   velocities[i] = velocity;
 }
 
-console.log(starGeo.attributes.velocity);
+//console.log(starGeo.attributes.velocity);
 
 sprite = new THREE.TextureLoader().load(
   "texture/star 3.png"
