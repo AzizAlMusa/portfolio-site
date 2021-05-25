@@ -1,3 +1,6 @@
+var url = window.location.href;
+console.log(url);
+
 import { Lensflare, LensflareElement } from "./Lensflare.js";
 
 (function () {
@@ -106,7 +109,7 @@ scene.add(PointLight2);
   }
   var wheel;
   var loader = new THREE.GLTFLoader();
-  loader.load("model/glossy-wheel/wheel.gltf", function (gltf) {
+  loader.load("model/wheel.gltf", function (gltf) {
     var scale = 75;
 
     wheel = gltf.scene.children[0].children[0];
