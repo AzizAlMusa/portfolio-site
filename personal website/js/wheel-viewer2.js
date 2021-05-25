@@ -1,6 +1,5 @@
 
-console.log(url);
-import { Lensflare, LensflareElement } from url + "js/Lensflare.js";
+import { Lensflare, LensflareElement } from "https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site@7b06df0113c0eca53a5999eb02f7c38ce60a0c65/personal%20website/js/Lensflare.js";
 
 (function () {
 
