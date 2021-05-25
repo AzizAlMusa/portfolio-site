@@ -48,7 +48,7 @@ for (let i = 0; i < 6000; i++) {
 console.log(starGeo.attributes.velocity);
 
 sprite = new THREE.TextureLoader().load(
-  "https://uploads-ssl.webflow.com/5f80548afc75e5333621bc93/609583d047f19368bd10744e_star%203.png"
+  "texture/star 3.png"
 );
 
 starMaterial = new THREE.PointsMaterial({
