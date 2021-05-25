@@ -1,9 +1,11 @@
-var url = window.location.href;
-console.log(url);
+
 
 import { Lensflare, LensflareElement } from "./Lensflare.js";
 
 (function () {
+
+  var url = window.location.href;
+console.log(url);
   var scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
   var camera = new THREE.PerspectiveCamera(
