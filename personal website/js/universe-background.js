@@ -1,4 +1,5 @@
 ///universe declarations
+(function () {
 var scene2 = new THREE.Scene();
 scene2.background = new THREE.Color(0x000000);
 var stars;
@@ -88,3 +89,5 @@ var animate = function (time) {
 };
 
 animate();
+
+})();
