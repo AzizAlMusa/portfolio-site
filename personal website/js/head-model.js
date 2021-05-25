@@ -62,7 +62,7 @@
 
   var loader = new THREE.GLTFLoader();
   loader.load(
-    "model/shmagh.glb",
+    url + "model/shmagh.glb",
     function (gltf) {
       var scale = 8;
 

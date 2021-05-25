@@ -1,6 +1,6 @@
 
 console.log(url);
-import { Lensflare, LensflareElement } from "./Lensflare.js";
+import { Lensflare, LensflareElement } from (url + "js/Lensflare.js");
 
 (function () {
 
@@ -88,8 +88,8 @@ scene.add(PointLight2);
 
   const textureLoader = new THREE.TextureLoader();
 
-  const textureFlare0 = textureLoader.load("texture/lensflare0.png");
-  const textureFlare3 = textureLoader.load("texture/lensflare3.png");
+  const textureFlare0 = textureLoader.load(url + "texture/lensflare0.png");
+  const textureFlare3 = textureLoader.load(url + "texture/lensflare3.png");
 
   addLight(0.15, 0.1, 0.8, 3, 200, -500);
   function addLight(h, s, l, x, y, z) {
@@ -110,7 +110,7 @@ scene.add(PointLight2);
   }
   var wheel;
   var loader = new THREE.GLTFLoader();
-  loader.load("model/wheel.gltf", function (gltf) {
+  loader.load("url + model/wheel.gltf", function (gltf) {
     var scale = 75;
 
     wheel = gltf.scene.children[0].children[0];
