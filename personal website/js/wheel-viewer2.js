@@ -1,7 +1,5 @@
 
- var url = document.location.href;
- console.log("Hello");
- console.log(url);
+console.log(url);
 import { Lensflare, LensflareElement } from "./Lensflare.js";
 
 (function () {
