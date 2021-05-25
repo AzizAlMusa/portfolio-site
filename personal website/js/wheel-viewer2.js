@@ -1,4 +1,4 @@
-import { Lensflare, LensflareElement } from "Lensflare.js";
+import { Lensflare, LensflareElement } from "./Lensflare.js";
 
 (function () {
   var scene = new THREE.Scene();
