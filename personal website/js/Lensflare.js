@@ -1,3 +1,4 @@
+
 import {
   AdditiveBlending,
   Box2,
@@ -15,7 +16,7 @@ import {
   Vector2,
   Vector3,
   Vector4
-} from "./three.module.js";
+} from url + "js/three.module.js";
 
 var Lensflare = function () {
   Mesh.call(

@@ -117,7 +117,7 @@ scene.add(PointLight2);
 
     const loader = new THREE.CubeTextureLoader();
 
-    loader.setPath("texture/");
+    loader.setPath(url + "texture/");
 
     const textureCube = loader.load([
       "posx.jpg",
