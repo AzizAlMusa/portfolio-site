@@ -1,9 +1,9 @@
-
-import { Lensflare, LensflareElement } from "https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site@7b06df0113c0eca53a5999eb02f7c38ce60a0c65/personal%20website/js/Lensflare.js";
+import {
+  Lensflare,
+  LensflareElement
+} from "https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site@master/personal%20website/js/Lensflare.js";
 
 (function () {
-
- 
   var scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
   var camera = new THREE.PerspectiveCamera(
@@ -195,7 +195,7 @@ scene.add(PointLight2);
     //wheel.rotation.x += 0.002;
     //wheel.rotation.y += 0.002;
     //wheel.rotation. += 0.004;
-    if(wheel){
+    if (wheel) {
       wheel.rotation.z += 0.0015;
       wheel.position.y = 3 + 0.1 * Math.sin(0.002 * time);
       if (wheel.position.z > -10) wheel.position.z -= 0.05;

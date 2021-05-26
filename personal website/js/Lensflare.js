@@ -1,4 +1,3 @@
-
 import {
   AdditiveBlending,
   Box2,
@@ -16,7 +15,7 @@ import {
   Vector2,
   Vector3,
   Vector4
-} from "https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site@7b06df0113c0eca53a5999eb02f7c38ce60a0c65/personal%20website/js/three.module.js";
+} from "https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site@master/personal%20website/js/three.module.js";
 
 var Lensflare = function () {
   Mesh.call(
