@@ -109,7 +109,7 @@ scene.add(PointLight2);
   }
   var wheel;
   var loader = new THREE.GLTFLoader();
-  loader.load("url + model/wheel.gltf", function (gltf) {
+  loader.load(url + "model/wheel.gltf", function (gltf) {
     var scale = 75;
 
     wheel = gltf.scene.children[0].children[0];
