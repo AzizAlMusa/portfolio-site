@@ -5,7 +5,7 @@ import {
 
 (function () {
   var scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x000000);
+  //scene.background = new THREE.Color(0x000000);
   var camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
