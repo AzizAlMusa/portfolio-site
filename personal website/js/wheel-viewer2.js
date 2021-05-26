@@ -183,7 +183,7 @@ scene.add(PointLight2);
     particle.add(mesh);
   }
 
-  camera.position.z = 14;
+  camera.position.z = 20;
   camera.position.x = -5;
   camera.position.y = 0;
   //scene.add(particle);
