@@ -58,7 +58,7 @@
 ,
 		{
 			"mesh": 5
-			,"name": "beige low gloss plastic-2"		}
+			,"name": "blue high gloss plastic"		}
 ,
 		{
 			"mesh": 6
@@ -66,10 +66,10 @@
 ,
 		{
 			"matrix": [
-				-0.06996159,					-0.5334439,					0.8429372,					0,
-				0.9807939,					-0.1910106,					-0.03947567,					0,
-				0.1820679,					0.8239858,					0.5365618,					0,
-				0.2144183,					1.066099,					0.6828551,					1
+				0.02353329,					-0.4201142,					0.9071661,					0,
+				0.991818,					-0.1040762,					-0.07392763,					0,
+				0.1254725,					0.9014834,					0.4142275,					0,
+				0.1194169,					0.892061,					0.3808987,					1
 			]
 			,"camera": 0
 			,"name": "SOLIDWORKS Viewport"		}
@@ -775,16 +775,16 @@
 				,"doubleSided": true
 			},
 			{
-				"name": "beige low gloss plastic-2",
+				"name": "blue high gloss plastic",
 				"emissiveFactor": [
 					0, 0, 0
 				]
 				,"pbrMetallicRoughness": {
 					"baseColorFactor": [
-						0.005256727, 0.1333258, 1, 1
+						3.777835E-05, 0.06233679, 0.9434472, 1
 					]
-					,"metallicFactor": 0
-					,"roughnessFactor": 0.6440087
+					,"metallicFactor": 0.2765333
+					,"roughnessFactor": 0.01336535
 				}
 				,"alphaMode": "OPAQUE"
 				,"doubleSided": true
