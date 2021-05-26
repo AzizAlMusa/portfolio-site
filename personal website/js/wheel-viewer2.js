@@ -187,6 +187,18 @@ scene.add(PointLight2);
   camera.position.x = -5;
   camera.position.y = 0;
   //scene.add(particle);
+  var wheelInView = false;
+
+  $(window).scroll(function () {
+    var hT = $("#scroll-to").offset().top,
+      hH = $("#scroll-to").outerHeight(),
+      wH = $(window).height(),
+      wS = $(this).scrollTop();
+    if (wS > hT + hH - wH) {
+      wheelInView = true;
+    }
+  });
+
   var animate = function (time) {
     requestAnimationFrame(animate);
     //controls.update();
@@ -198,17 +210,11 @@ scene.add(PointLight2);
     if (wheel) {
       wheel.rotation.z += 0.0015;
       wheel.position.y = 3 + 0.1 * Math.sin(0.002 * time);
+    }
+
+    if (wheelInView) {
       if (wheel.position.z > -10) wheel.position.z -= 0.05;
     }
-    //wheel.rotation.y += 0.02;
-
-    /*
-  if (Math.abs(camera.position.z) < 15) {
-    camera.position.z -= 0.15;
-  } /*else {
-    wheel.rotation.y += 0.002;
-  }
-  */
   };
 
   animate();
