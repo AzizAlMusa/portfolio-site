@@ -190,8 +190,8 @@ scene.add(PointLight2);
   var wheelInView = false;
 
   $(window).scroll(function () {
-    var hT = $("#scroll-to").offset().top,
-      hH = $("#scroll-to").outerHeight(),
+    var hT = $("#wheel-viewer").offset().top,
+      hH = $("#wheel-viewer").outerHeight(),
       wH = $(window).height(),
       wS = $(this).scrollTop();
     if (wS > hT + hH - wH) {
