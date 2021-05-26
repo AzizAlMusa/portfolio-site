@@ -90,7 +90,7 @@ scene.add(PointLight2);
   const textureFlare0 = textureLoader.load(url + "texture/lensflare0.png");
   const textureFlare3 = textureLoader.load(url + "texture/lensflare3.png");
 
-  addLight(0.15, 0.1, 0.8, 3, 200, -500);
+  //addLight(0.15, 0.1, 0.8, 3, 200, -500);
   function addLight(h, s, l, x, y, z) {
     const light = new THREE.PointLight(0xffffff, 2, 2000);
     light.color.setHSL(h, s, l);
