@@ -190,11 +190,7 @@ scene.add(PointLight2);
   var wheelInView = false;
 
   $(window).scroll(function () {
-    var hT = $("#wheel-viewer").offset().top,
-      hH = $("#wheel-viewer").outerHeight(),
-      wH = $(window).height(),
-      wS = $(this).scrollTop();
-    if (wS > hT + hH - wH) {
+    if($.scrollify.current().attr('id') == 'hook-section'){
       wheelInView = true;
     }
   });
