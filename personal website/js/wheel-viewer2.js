@@ -162,7 +162,7 @@ scene.add(PointLight2);
     wheel.scale.set(scale, scale, scale);
     wheel.rotation.y = THREE.MathUtils.degToRad(10);
     wheel.rotation.x = THREE.MathUtils.degToRad(15);
-    wheel.position.z = 5.5;
+    wheel.position.z = 20;
     scene.add(wheel);
 
     //let material = new THREE.MeshBasicMateri({ color: 0xffffff, size: 0.02 });
@@ -183,7 +183,7 @@ scene.add(PointLight2);
     particle.add(mesh);
   }
 
-  camera.position.z = 20;
+  camera.position.z = 14;
   camera.position.x = -5;
   camera.position.y = 0;
   //scene.add(particle);
@@ -209,7 +209,7 @@ scene.add(PointLight2);
     }
 
     if (wheelInView) {
-      if (wheel.position.z > -10) wheel.position.z -= 0.05;
+      if (wheel.position.z > -10) wheel.position.z -= 0.1;
     }
   };
 
