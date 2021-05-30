@@ -195,6 +195,17 @@ scene.add(PointLight2);
     }
   });
 
+
+  function onWindowResize() {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  
+    var portWidth = $("#wheel-viewer").width();
+    var portHeight = $("#wheel-viewer").height();
+    camera.aspect = portWidth / portHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(portWidth, portHeight);
+  }
+
   var animate = function (time) {
     requestAnimationFrame(animate);
     //controls.update();

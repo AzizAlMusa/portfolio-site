@@ -79,6 +79,17 @@ function galacticTravel() {
   starGeo.attributes.position.needsUpdate = true;
 }
 
+function onWindowResize() {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  var portWidth = $("#universe-viewer").width();
+  var portHeight = $("#universe-viewer").height();
+  camera.aspect = portWidth / portHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(portWidth, portHeight);
+}
+
+
 var animate = function (time) {
   requestAnimationFrame(animate);
 
