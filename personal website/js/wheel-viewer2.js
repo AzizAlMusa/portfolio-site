@@ -205,7 +205,9 @@ scene.add(PointLight2);
     camera.updateProjectionMatrix();
     renderer.setSize(portWidth, portHeight);
   }
+  window.addEventListener("resize", onWindowResize, false);
 
+  
   var animate = function (time) {
     requestAnimationFrame(animate);
     //controls.update();

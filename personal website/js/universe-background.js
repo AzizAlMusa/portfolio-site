@@ -88,7 +88,7 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
   renderer.setSize(portWidth, portHeight);
 }
-
+window.addEventListener("resize", onWindowResize, false);
 
 var animate = function (time) {
   requestAnimationFrame(animate);
