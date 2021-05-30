@@ -80,13 +80,13 @@ function galacticTravel() {
 }
 
 function onWindowResize() {
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer2.setSize(window.innerWidth, window.innerHeight);
 
   var portWidth = $("#universe-viewer").width();
   var portHeight = $("#universe-viewer").height();
-  camera.aspect = portWidth / portHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(portWidth, portHeight);
+  camera2.aspect = portWidth / portHeight;
+  camera2.updateProjectionMatrix();
+  renderer2.setSize(portWidth, portHeight);
 }
 window.addEventListener("resize", onWindowResize, false);
 
