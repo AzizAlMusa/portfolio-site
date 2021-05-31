@@ -47,14 +47,15 @@
 
   controls.dampingFactor = 0.25;
   // controls.screenSpacePanning = true;
-  //controls.minDistance = 30;
-  //controls.maxDistance = 30;
-  //controls.maxPolarAngle = Math.PI / 2;
-  //controls.minPolarAngle = Math.PI / 2; // radians
+  controls.minDistance = 30;
+  controls.maxDistance = 30;
+  controls.maxPolarAngle = Math.PI / 2;
+  controls.minPolarAngle = Math.PI / 2; // radians
   //controls.minAzimuthAngle = -Math.PI / 2; // radians
   //controls.maxAzimuthAngle = Math.PI / 2; // radians
   //controls.rotateSpeed = 0.7;
-  //controls.enablePan = false;
+  controls.enablePan = false;
+  controls.enableZoom = false;
   controls.autoRotate = true;
   controls.autoRotateSpeed = 2.0;
 
