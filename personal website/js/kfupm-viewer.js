@@ -1,12 +1,9 @@
 (function () {
   var scene = new THREE.Scene();
   var renderer = new THREE.WebGLRenderer({ alpha: true });
-  var scan;
-  var mesh;
-  var scan;
-  var points;
-  var pivot;
+  
   var tower;
+  var logo;
   var camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
@@ -21,11 +18,11 @@
   camera.updateProjectionMatrix();
   document.getElementById("kfupm-viewer").appendChild(renderer.domElement);
 
-  const light = new THREE.AmbientLight(0xffffff, 0.2);
+  const light = new THREE.AmbientLight(0xffffff, 0.5);
 
   scene.add(light);
 
-  const directionalLight = new THREE.DirectionalLight(0xc7b7fe, 2);
+  const directionalLight = new THREE.DirectionalLight(0x8470ff, 2); //0x7142FF
   directionalLight.castShadows = true;
   directionalLight.position.z = 0;
   directionalLight.position.y = 0;
@@ -40,7 +37,7 @@
   pointLight2.position.set(-20, 20, 5);
   //scene.add(pointLight2);
 
-  //const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
   ///////////////////MODEL/////////////////////////////
 
@@ -48,14 +45,36 @@
   //url + "model/kfupm/kfupm_tower.gltf"
   loader.load("model/kfupm/kfupm_tower.gltf", function (gltf) {
     console.log(gltf);
-    tower = gltf.scene.children[0].children[0];
-    tower.position.y -= 30;
-    tower.position.z -= 20;
-    tower.position.x = 20;
+    tower = gltf.scene.children[0].children[0].children[0];
+    var scale = 4;
+    tower.scale.set(scale, scale, scale);
+    tower.position.y -= 150;
+    tower.position.z -= 100;
+    tower.position.x = 100;
+    tower.getObjectByName('color-6').material.color.setHex(0xC7A878);
+    //tower.getObjectByName('color-7').material.color.setHex(0x00ff00);
+    //tower.children[4].material.color.setHex(0x00ff00); //fffdd1 #F9E7CE 0xffcccb
+    //tower.children[13].material.color.setHex(0xC7A878); //fffdd1 #F9E7CE 0xffcccb #C7A878
     console.log(tower);
-    tower.children[0].children[13].material.color.setHex(0xffcccb); //fffdd1
     scene.add(tower);
   });
+
+  loader.load("model/kfupm/kfupm_logo.gltf", function (gltf) {
+    console.log(gltf);
+    logo = gltf.scene.children[0].children[0].children[0];
+    var scale = 80;
+    logo.scale.set(scale, scale, scale);
+    logo.position.y -= 60;
+    logo.position.z -= 100;
+    logo.position.x = -120;
+    //tower.getObjectByName('color-6').material.color.setHex(0xC7A878);
+    //tower.getObjectByName('color-7').material.color.setHex(0x00ff00);
+    //tower.children[4].material.color.setHex(0x00ff00); //fffdd1 #F9E7CE 0xffcccb
+    //tower.children[13].material.color.setHex(0xC7A878); //fffdd1 #F9E7CE 0xffcccb #C7A878
+    console.log(logo);
+    scene.add(logo);
+  });
+
 
   camera.position.z = 30;
 
@@ -75,8 +94,9 @@
 
   var animate = function (time) {
     requestAnimationFrame(animate);
-    console.log(window.innerWidth);
-    tower.rotation.y += 0.005;
+    
+    if(tower)  tower.rotation.y += 0.005;
+    if(logo)  logo.rotation.y += 0.005;
     renderer.render(scene, camera);
   };
 
