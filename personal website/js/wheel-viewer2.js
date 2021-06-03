@@ -188,12 +188,13 @@ scene.add(PointLight2);
   camera.position.y = 0;
   //scene.add(particle);
   var wheelInView = false;
-
+  
   $(window).scroll(function () {
     if($.scrollify.current().attr('id') == 'hook-section'){
       wheelInView = true;
     }
   });
+
 
 
   function onWindowResize() {
@@ -223,14 +224,18 @@ scene.add(PointLight2);
 
     if (wheelInView) {
       if(window.innerWidth > 991){
+        wheel.position.x = 0;
+        wheel.rotation.y = THREE.MathUtils.degToRad(10);
         if (wheel.position.z > -10) wheel.position.z -= 0.1;
 
-        else wheel.position.z = -10;
-        
+        else  wheel.position.z = -10;
       }
       else if(window.innerWidth <= 991) {
-        if (wheel.position.z > -30) wheel.position.z -= 0.3;
-        else wheel.position.z = -30;
+        wheel.position.x = -6;
+        wheel.rotation.y = THREE.MathUtils.degToRad(20);
+        wheel.position.z = -15;
+        if (wheel.position.z > -15) wheel.position.z -= 0.1;
+        else  wheel.position.z = -15;
       }
     }
   };
