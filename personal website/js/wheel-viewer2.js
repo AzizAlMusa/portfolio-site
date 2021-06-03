@@ -222,10 +222,10 @@ scene.add(PointLight2);
     }
 
     if (wheelInView) {
-      if(window.screen.availWidth > 991){
+      if(window.innerWidth > 991){
         if (wheel.position.z > -10) wheel.position.z -= 0.1;
       }
-      else if(window.screen.availWidth <= 991) {
+      else if(window.innerWidth <= 991) {
         if (wheel.position.z > -15) wheel.position.z -= 0.1;
       }
     }
