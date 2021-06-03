@@ -207,7 +207,7 @@ scene.add(PointLight2);
   }
   window.addEventListener("resize", onWindowResize, false);
 
-  
+
   var animate = function (time) {
     requestAnimationFrame(animate);
     //controls.update();
@@ -222,7 +222,12 @@ scene.add(PointLight2);
     }
 
     if (wheelInView) {
-      if (wheel.position.z > -10) wheel.position.z -= 0.1;
+      if(window.screen.availWidth > 991){
+        if (wheel.position.z > -10) wheel.position.z -= 0.1;
+      }
+      else if(window.screen.availWidth <= 991) {
+        if (wheel.position.z > -15) wheel.position.z -= 0.1;
+      }
     }
   };
 

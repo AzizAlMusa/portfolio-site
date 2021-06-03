@@ -40,7 +40,7 @@
   pointLight2.position.set(-20, 20, 5);
   //scene.add(pointLight2);
 
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  //const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
   ///////////////////MODEL/////////////////////////////
 
@@ -75,6 +75,7 @@
 
   var animate = function (time) {
     requestAnimationFrame(animate);
+    console.log(window.innerWidth);
     tower.rotation.y += 0.005;
     renderer.render(scene, camera);
   };
