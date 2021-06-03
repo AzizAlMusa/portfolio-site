@@ -39,21 +39,21 @@ import {
   directionalLight2.castShadows = true;
   directionalLight2.position.z = 0;
   directionalLight2.position.y = 0;
-  directionalLight2.position.x = -30;
+  directionalLight2.position.x = -24;
   scene.add(directionalLight2);
 
   const PointLight = new THREE.PointLight(0xff0000, 0.1);
   PointLight.castShadows = true;
   PointLight.position.z = 6;
   PointLight.position.y = 0;
-  PointLight.position.x = 0;
+  PointLight.position.x = 8;
   scene.add(PointLight);
 
   const PointLight2 = new THREE.PointLight(0xfd5800, 0.2);
   PointLight2.castShadows = true;
   PointLight2.position.z = 10;
   PointLight2.position.y = 1;
-  PointLight2.position.x = 2;
+  PointLight2.position.x = 10;
   scene.add(PointLight2);
 
   const PointLight3 = new THREE.DirectionalLight(0xffffff, 1);
@@ -160,6 +160,7 @@ scene.add(PointLight2);
     });
 
     wheel.scale.set(scale, scale, scale);
+    wheel.position.x = 6;
     wheel.rotation.y = THREE.MathUtils.degToRad(10);
     wheel.rotation.x = THREE.MathUtils.degToRad(15);
     wheel.position.z = 20;
@@ -167,34 +168,20 @@ scene.add(PointLight2);
 
     //let material = new THREE.MeshBasicMateri({ color: 0xffffff, size: 0.02 });
   });
-  var rockGeo = new THREE.IcosahedronGeometry(0.1, 1);
-  var planetMaterial = new THREE.MeshPhongMaterial({
-    color: 0xff00000,
-    shading: THREE.FlatShading
-  });
-  var particle = new THREE.Object3D();
-  for (var i = 0; i < 1000; i++) {
-    var mesh = new THREE.Mesh(rockGeo, planetMaterial);
-    mesh.position
-      .set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5)
-      .normalize();
-    mesh.position.multiplyScalar(5 * Math.random() + 15);
-    mesh.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
-    particle.add(mesh);
-  }
+
 
   camera.position.z = 14;
-  camera.position.x = -5;
+  camera.position.x = 0;
   camera.position.y = 0;
   //scene.add(particle);
-  var wheelInView = false;
-  
+  var wheelInView = true;
+  /*
   $(window).scroll(function () {
     if($.scrollify.current().attr('id') == 'hook-section'){
       wheelInView = true;
     }
   });
-
+*/
 
 
   function onWindowResize() {
@@ -207,8 +194,61 @@ scene.add(PointLight2);
     renderer.setSize(portWidth, portHeight);
   }
   window.addEventListener("resize", onWindowResize, false);
+var animationDone = false;
+function smoothIntro(){
+  //once scrolled to the wheel model's div
+  const SCREEN_CUTOFF = 991;
+  var zTarget;
+  var xTarget;
 
+  if (wheelInView) {
+     //when we a pc screen
+    if(window.innerWidth > SCREEN_CUTOFF){
+      zTarget = -10; //target to for the wheel to move into
+      xTarget = 6;
+      wheel.rotation.y = THREE.MathUtils.degToRad(10); //default orientation for PC screen
 
+      
+      const animationSteps = 350; //experimentally found this to be a smooth speed
+      const zIncrement = (20 - zTarget) / animationSteps;  //20 is its initial state
+      //animate until zTarget is reached with the increment speed
+      if (wheel.position.z > zTarget && !animationDone) wheel.position.z -= zIncrement;
+      
+      //in case we have already completed animated (after resizing for example)
+      else{
+         animationDone = true;
+          wheel.position.z = zTarget; //set to target
+          wheel.position.x = xTarget; //adjust in case resized from mobile view
+      }
+    }
+    
+    else if(window.innerWidth <= SCREEN_CUTOFF) {
+      zTarget = -15;
+      xTarget = -1;
+
+      const animationSteps = 350; //experimentally found this to be a smooth speed
+      const zIncrement = (20 - zTarget) / animationSteps;  //20 is its initial state
+      const xIncrement = (6 - xTarget) / animationSteps //6 is its initial State
+      wheel.rotation.y = THREE.MathUtils.degToRad(20);
+      
+      if ( wheel.position.z > zTarget && wheel.position.x > xTarget && !animationDone){
+        wheel.position.z -= zIncrement;
+        wheel.position.x -= xIncrement;
+      }
+
+      else {
+        animationDone = true;
+        wheel.position.z = zTarget;
+        wheel.position.x = xTarget;
+      }
+     
+       
+      
+      
+      console.log(wheel.position.x);
+    }
+  }
+}
   var animate = function (time) {
     requestAnimationFrame(animate);
     //controls.update();
@@ -222,29 +262,8 @@ scene.add(PointLight2);
       wheel.position.y = 3 + 0.1 * Math.sin(0.002 * time);
     }
 
-    if (wheelInView) {
-      if(window.innerWidth > 991){
-        wheel.position.x = 0;
-        wheel.rotation.y = THREE.MathUtils.degToRad(10);
-        if (wheel.position.z > -10) wheel.position.z -= 0.1;
-
-        else  wheel.position.z = -10;
-      }
-      else if(window.innerWidth <= 991) {
-        
-        wheel.rotation.y = THREE.MathUtils.degToRad(20);
-      
-        if (wheel.position.z > -15 && wheel.position.x > -6){
-          wheel.position.z -= 0.1;
-          wheel.position.x -= 0.04;
-        
-        } 
-        else{
-          wheel.position.z = -15;
-          wheel.position.x = -6;
-        }  
-      }
-    }
+      smoothIntro();
+    
   };
 
   animate();
