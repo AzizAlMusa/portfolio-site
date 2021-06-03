@@ -224,9 +224,13 @@ scene.add(PointLight2);
     if (wheelInView) {
       if(window.innerWidth > 991){
         if (wheel.position.z > -10) wheel.position.z -= 0.1;
+
+        else wheel.position.z = -10;
+        
       }
       else if(window.innerWidth <= 991) {
-        if (wheel.position.z > -15) wheel.position.z -= 0.1;
+        if (wheel.position.z > -30) wheel.position.z -= 0.3;
+        else wheel.position.z = -30;
       }
     }
   };
