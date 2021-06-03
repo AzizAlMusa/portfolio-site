@@ -231,11 +231,17 @@ scene.add(PointLight2);
         else  wheel.position.z = -10;
       }
       else if(window.innerWidth <= 991) {
-        wheel.position.x = -6;
+        
         wheel.rotation.y = THREE.MathUtils.degToRad(20);
       
-        if (wheel.position.z > -15) wheel.position.z -= 0.1;
-        else  wheel.position.z = -15;
+        if (wheel.position.z > -15){
+          wheel.position.z -= 0.1;
+          wheel.position.x -= 0.04;
+        } 
+        else{
+          wheel.position.z = -15;
+          wheel.position.x = -6;
+        }  
       }
     }
   };
