@@ -22,7 +22,7 @@
 
   scene.add(light);
 
-  const directionalLight = new THREE.DirectionalLight(0x8470ff, 2); //0x7142FF
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1); //0x7142FF 0x8470ff,
   directionalLight.castShadows = true;
   directionalLight.position.z = 0;
   directionalLight.position.y = 0;
@@ -49,12 +49,26 @@
     var scale = 4;
     tower.scale.set(scale, scale, scale);
     tower.position.y -= 150;
-    tower.position.z -= 100;
+    tower.position.z -= 130;
     tower.position.x = 100;
-    tower.getObjectByName('color-6').material.color.setHex(0xC7A878);
+    var primaryColor = 0xb68e78;
+    tower.getObjectByName('color-6').material.color.setHex(primaryColor);
     //tower.getObjectByName('color-7').material.color.setHex(0x00ff00);
     //tower.children[4].material.color.setHex(0x00ff00); //fffdd1 #F9E7CE 0xffcccb
     //tower.children[13].material.color.setHex(0xC7A878); //fffdd1 #F9E7CE 0xffcccb #C7A878
+ 
+    
+    for(var i = 0; i < 14 ; i++){
+      
+      if(tower.children[i].name != 'color-6')tower.children[i].material.color.setHex(
+        primaryColor);
+      
+    }
+    tower.getObjectByName('color').material.color.setHex(0xC791B0);
+    tower.getObjectByName('color-2').material.color.setHex(0xC791B0);
+    tower.getObjectByName('color-3').material.color.setHex(0xC791B0);
+    tower.getObjectByName('color-5').material.color.setHex(0xC791B0);
+   
     console.log(tower);
     scene.add(tower);
   });
@@ -64,11 +78,11 @@
     logo = gltf.scene.children[0].children[0].children[0];
     var scale = 80;
     logo.scale.set(scale, scale, scale);
-    logo.position.y -= 60;
+    logo.position.y -= 20;
     logo.position.z -= 100;
-    logo.position.x = -120;
-    //tower.getObjectByName('color-6').material.color.setHex(0xC7A878);
-    //tower.getObjectByName('color-7').material.color.setHex(0x00ff00);
+    logo.position.x = 0;
+    //logo.children[0].material.color.setHex(0xff0000);
+
     //tower.children[4].material.color.setHex(0x00ff00); //fffdd1 #F9E7CE 0xffcccb
     //tower.children[13].material.color.setHex(0xC7A878); //fffdd1 #F9E7CE 0xffcccb #C7A878
     console.log(logo);
@@ -96,7 +110,7 @@
     requestAnimationFrame(animate);
     
     if(tower)  tower.rotation.y += 0.005;
-    if(logo)  logo.rotation.y += 0.005;
+    if(logo)  logo.rotation.y += 0.002;
     renderer.render(scene, camera);
   };
 

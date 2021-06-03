@@ -3,6 +3,7 @@
 		"generator": "VISUALIZEGLTF",
 		"version" : "2.0"
 	},
+	"extensionsUsed": [ "KHR_lights_punctual" ],
 	"scenes": [
 		{
 			"name": "Default",
@@ -13,7 +14,7 @@
 	"nodes": [
 		{
 			"children": [
-				1, 4, 5, 6, 7
+				1, 4, 5, 6, 7, 8, 9, 10
 			]
 			,"name": ""		}
 ,
@@ -21,13 +22,7 @@
 			"children": [
 				2
 			]
-			,"matrix": [
-				1,					0,					0,					0,
-				0,					1,					0,					0,
-				0,					0,					1,					0,
-				0,					-0.03481553,					0,					1
-			]
-			,"name": "kfupm"		}
+			,"name": "kfupm logo"		}
 ,
 		{
 			"children": [
@@ -41,10 +36,10 @@
 ,
 		{
 			"matrix": [
-				0.6516796,					-1.862695E-09,					-0.7584944,					0,
-				-0.01592711,					0.9997796,					-0.01368418,					0,
-				0.7583271,					0.02099833,					0.6515359,					0,
-				4.166558,					0.5819868,					3.111198,					1
+				0.990734,					-0.130376,					0.03805471,					0,
+				0.1350019,					0.9759842,					-0.1709657,					0,
+				-0.01485096,					0.174519,					0.9845418,					0,
+				-0.07080198,					0.8320196,					4.698804,					1
 			]
 			,"camera": 0
 			,"name": "SOLIDWORKS Viewport"		}
@@ -60,16 +55,58 @@
 			,"name": "Default Camera"		}
 ,
 		{
-			"name": "High Contrast Ramp"		}
+			"matrix": [
+				0,					0,					-0.9999999,					0,
+				-0.7071068,					0.7071068,					0,					0,
+				0.7071068,					0.7071068,					0,					0,
+				7.071068,					7.071068,					0,					1
+			]
+			,"extensions" : {
+				"KHR_lights_punctual" : {
+					"light" : 0
+				}
+			}
+			,"name": "Directional1"		}
 ,
 		{
-			"name": "Studio Soft Grey 12"		}
+			"matrix": [
+				-0.9019192,					0,					0.4319047,					0,
+				0.2645487,					0.790458,					0.5524403,					0,
+				-0.3414025,					0.6125164,					-0.7129292,					0,
+				-3.414026,					6.125165,					-7.12929,					1
+			]
+			,"extensions" : {
+				"KHR_lights_punctual" : {
+					"light" : 1
+				}
+			}
+			,"name": "Directional2"		}
+,
+		{
+			"matrix": [
+				-0.1920117,					0,					0.9813927,					0,
+				0.3346118,					0.9400793,					0.06546756,					0,
+				-0.9225869,					0.3409561,					-0.1805062,					0,
+				-9.225868,					3.40956,					-1.805061,					1
+			]
+			,"extensions" : {
+				"KHR_lights_punctual" : {
+					"light" : 2
+				}
+			}
+			,"name": "Directional3"		}
+,
+		{
+			"name": "3 Point Faded"		}
+,
+		{
+			"name": "3 Point Faded Backplate"		}
 	],
 	"cameras": [
 		{
 			"type": "perspective",
 			"perspective" : {
-				"aspectRatio": 1.294118,
+				"aspectRatio": 1.25,
 				"yfov" : 0.3215369,
 				"zfar" : 100,
 				"znear" : 0.01
@@ -86,6 +123,39 @@
 			}
 		}
 	],
+	"extensions": {
+		"KHR_lights_punctual" : {
+			"lights": [
+		{
+			"name": "Directional1[1]",
+			"color": [
+					0.5773503, 0.5773503, 0.5773503
+				],
+			"intensity": 0.5773503,
+			"type": "directional"
+		}
+,
+		{
+			"name": "Directional2[1]",
+			"color": [
+					0.5773503, 0.5773503, 0.5773503
+				],
+			"intensity": 0.5773503,
+			"type": "directional"
+		}
+,
+		{
+			"name": "Directional3[1]",
+			"color": [
+					0.5773503, 0.5773503, 0.5773503
+				],
+			"intensity": 0.5773503,
+			"type": "directional"
+		}
+
+			]
+		}
+	},
 	"meshes" : [
 		{
 			"primitives" : [
@@ -116,8 +186,8 @@
 				,"componentType" : 5126
 				,"count" : 20656
 				,"type" : "VEC3"
-								,"min": [0.0696550533,0.0351155289,-3.46944695E-18]
-								,"max": [1.03280962,0.998270154,0.00999999978]
+								,"min": [-0.481577277,-0.481577277,-3.46944695E-18]
+								,"max": [0.481577277,0.481577337,0.00999999978]
 			},
 			{
 				"bufferView": 1
