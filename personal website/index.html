@@ -4,15 +4,16 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-
     <div id="universe-viewer"></div>
+    <!--
     <div id="model-viewer"></div>
-    <div id="wheel-viewer"></div>
+    <div id="wheel-viewer"></div> -->
+    <div id="kfupm-viewer"></div>
     <script>
-      var prefix="https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site";
-      var version="@e088f8d5fbd544074696bef0bd6136c44619e5cd";
-      var suffix="/personal%20website/"
-      url = prefix+version+suffix;
+      var prefix = "https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site";
+      var version = "@e088f8d5fbd544074696bef0bd6136c44619e5cd";
+      var suffix = "/personal%20website/";
+      url = prefix + version + suffix;
       //document.getElementById('universe-script').src = url + "js/universe-background.js";
       //document.getElementById('head-model-script').src = url + "js/head-model.js";
       //document.getElementById('wheel-model-script').src = url + "js/wheel-viewer2.js";
@@ -22,6 +23,6 @@
     <script src="js/OrbitControls.js"></script>
     <script src="js/GLTFLoader.js"></script>
     <script src="js/universe-background.js"></script>
-    <script type="module" src="js/head-model.js"></script>
+    <script type="module" src="js/kfupm-viewer.js"></script>
   </body>
 </html>
