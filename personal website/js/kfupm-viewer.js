@@ -48,9 +48,9 @@
     tower = gltf.scene.children[0].children[0].children[0];
     var scale = 10;
     tower.scale.set(scale, scale, scale);
-    tower.position.y -= 400;
-    tower.position.z -= 300;
-    tower.position.x = 100;
+    tower.position.y -= 150;
+    tower.position.z -= 130;
+    tower.position.x = 50;
     var primaryColor = 0xb68e78;
     var mainTower = tower.getObjectByName("color-6");
     mainTower.material.color.setHex(primaryColor);
