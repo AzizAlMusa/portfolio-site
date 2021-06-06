@@ -18,11 +18,11 @@
   camera.updateProjectionMatrix();
   document.getElementById("kfupm-viewer").appendChild(renderer.domElement);
 
-  const light = new THREE.AmbientLight(0xffffff, 0.5);
+  const light = new THREE.AmbientLight(0xffffff, 0.35);
 
   scene.add(light);
 
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 1); //0x7142FF 0x8470ff,
+  const directionalLight = new THREE.DirectionalLight(0xffd643, 1); //0x7142FF 0x8470ff,
   directionalLight.castShadows = true;
   directionalLight.position.z = 0;
   directionalLight.position.y = 0;
@@ -43,14 +43,14 @@
 
   var loader = new THREE.GLTFLoader();
   //url + "model/kfupm/kfupm_tower.gltf"
-  loader.load("model/kfupm/kfupm_tower.gltf", function (gltf) {
+  loader.load(url + "model/kfupm/kfupm_tower.gltf", function (gltf) {
     console.log(gltf);
     tower = gltf.scene.children[0].children[0].children[0];
     var scale = 4;
     tower.scale.set(scale, scale, scale);
     tower.position.y -= 150;
     tower.position.z -= 130;
-    tower.position.x = 100;
+    tower.position.x = 50;
     var primaryColor = 0xb68e78;
     tower.getObjectByName('color-6').material.color.setHex(primaryColor);
     //tower.getObjectByName('color-7').material.color.setHex(0x00ff00);
@@ -73,7 +73,7 @@
     scene.add(tower);
   });
 
-  loader.load("model/kfupm/kfupm_logo.gltf", function (gltf) {
+  loader.load(url + "model/kfupm/kfupm_logo.gltf", function (gltf) {
     console.log(gltf);
     logo = gltf.scene.children[0].children[0].children[0];
     var scale = 80;
@@ -109,8 +109,8 @@
   var animate = function (time) {
     requestAnimationFrame(animate);
     
-    if(tower)  tower.rotation.y += 0.005;
-    if(logo)  logo.rotation.y += 0.002;
+    if(tower)  tower.rotation.y += 0.0005;
+    if(logo)  logo.rotation.y += 0.0015;
     renderer.render(scene, camera);
   };
 
