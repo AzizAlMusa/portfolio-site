@@ -169,24 +169,21 @@ scene.add(PointLight2);
     //let material = new THREE.MeshBasicMateri({ color: 0xffffff, size: 0.02 });
   });
 
-
   camera.position.z = 14;
   camera.position.x = 0;
   camera.position.y = 0;
   //scene.add(particle);
-  var wheelInView = true;
-  /*
+  //var wheelInView = true;
+
   $(window).scroll(function () {
-    if($.scrollify.current().attr('id') == 'hook-section'){
+    if ($.scrollify.current().attr("id") == "hook-section") {
       wheelInView = true;
     }
   });
-*/
-
 
   function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
-  
+
     var portWidth = $("#wheel-viewer").width();
     var portHeight = $("#wheel-viewer").height();
     camera.aspect = portWidth / portHeight;
@@ -194,61 +191,57 @@ scene.add(PointLight2);
     renderer.setSize(portWidth, portHeight);
   }
   window.addEventListener("resize", onWindowResize, false);
-var animationDone = false;
-function smoothIntro(){
-  //once scrolled to the wheel model's div
-  const SCREEN_CUTOFF = 991;
-  var zTarget;
-  var xTarget;
+  var animationDone = false;
+  function smoothIntro() {
+    //once scrolled to the wheel model's div
+    const SCREEN_CUTOFF = 991;
+    var zTarget;
+    var xTarget;
 
-  if (wheelInView) {
-     //when we a pc screen
-    if(window.innerWidth > SCREEN_CUTOFF){
-      zTarget = -10; //target to for the wheel to move into
-      xTarget = 6;
-      wheel.rotation.y = THREE.MathUtils.degToRad(10); //default orientation for PC screen
+    if (wheelInView) {
+      //when we a pc screen
+      if (window.innerWidth > SCREEN_CUTOFF) {
+        zTarget = -10; //target to for the wheel to move into
+        xTarget = 6;
+        wheel.rotation.y = THREE.MathUtils.degToRad(10); //default orientation for PC screen
 
-      
-      const animationSteps = 350; //experimentally found this to be a smooth speed
-      const zIncrement = (20 - zTarget) / animationSteps;  //20 is its initial state
-      //animate until zTarget is reached with the increment speed
-      if (wheel.position.z > zTarget && !animationDone) wheel.position.z -= zIncrement;
-      
-      //in case we have already completed animated (after resizing for example)
-      else{
-         animationDone = true;
+        const animationSteps = 350; //experimentally found this to be a smooth speed
+        const zIncrement = (20 - zTarget) / animationSteps; //20 is its initial state
+        //animate until zTarget is reached with the increment speed
+        if (wheel.position.z > zTarget && !animationDone)
+          wheel.position.z -= zIncrement;
+        //in case we have already completed animated (after resizing for example)
+        else {
+          animationDone = true;
           wheel.position.z = zTarget; //set to target
           wheel.position.x = xTarget; //adjust in case resized from mobile view
-      }
-    }
-    
-    else if(window.innerWidth <= SCREEN_CUTOFF) {
-      zTarget = -15;
-      xTarget = -1;
+        }
+      } else if (window.innerWidth <= SCREEN_CUTOFF) {
+        zTarget = -15;
+        xTarget = -1;
 
-      const animationSteps = 350; //experimentally found this to be a smooth speed
-      const zIncrement = (20 - zTarget) / animationSteps;  //20 is its initial state
-      const xIncrement = (6 - xTarget) / animationSteps //6 is its initial State
-      wheel.rotation.y = THREE.MathUtils.degToRad(20);
-      
-      if ( wheel.position.z > zTarget && wheel.position.x > xTarget && !animationDone){
-        wheel.position.z -= zIncrement;
-        wheel.position.x -= xIncrement;
-      }
+        const animationSteps = 350; //experimentally found this to be a smooth speed
+        const zIncrement = (20 - zTarget) / animationSteps; //20 is its initial state
+        const xIncrement = (6 - xTarget) / animationSteps; //6 is its initial State
+        wheel.rotation.y = THREE.MathUtils.degToRad(20);
 
-      else {
-        animationDone = true;
-        wheel.position.z = zTarget;
-        wheel.position.x = xTarget;
+        if (
+          wheel.position.z > zTarget &&
+          wheel.position.x > xTarget &&
+          !animationDone
+        ) {
+          wheel.position.z -= zIncrement;
+          wheel.position.x -= xIncrement;
+        } else {
+          animationDone = true;
+          wheel.position.z = zTarget;
+          wheel.position.x = xTarget;
+        }
+
+        console.log(wheel.position.x);
       }
-     
-       
-      
-      
-      console.log(wheel.position.x);
     }
   }
-}
   var animate = function (time) {
     requestAnimationFrame(animate);
     //controls.update();
@@ -262,8 +255,7 @@ function smoothIntro(){
       wheel.position.y = 3 + 0.1 * Math.sin(0.002 * time);
     }
 
-      smoothIntro();
-    
+    smoothIntro();
   };
 
   animate();
