@@ -1,7 +1,8 @@
 (function () {
+  url = "";
   var scene = new THREE.Scene();
   var renderer = new THREE.WebGLRenderer({ alpha: true });
-  
+
   var tower;
   var logo;
   var camera = new THREE.PerspectiveCamera(
@@ -22,7 +23,7 @@
 
   scene.add(light);
 
-  const directionalLight = new THREE.DirectionalLight(0xffd643, 1); //0x7142FF 0x8470ff,
+  const directionalLight = new THREE.DirectionalLight(0xe59913, 1.2); //0x7142FF 0x8470ff,
   directionalLight.castShadows = true;
   directionalLight.position.z = 0;
   directionalLight.position.y = 0;
@@ -46,29 +47,30 @@
   loader.load(url + "model/kfupm/kfupm_tower.gltf", function (gltf) {
     console.log(gltf);
     tower = gltf.scene.children[0].children[0].children[0];
-    var scale = 4;
+    var scale = 10;
     tower.scale.set(scale, scale, scale);
-    tower.position.y -= 150;
-    tower.position.z -= 130;
-    tower.position.x = 50;
+    tower.position.y -= 400;
+    tower.position.z -= 300;
+    tower.position.x = 80;
     var primaryColor = 0xb68e78;
-    tower.getObjectByName('color-6').material.color.setHex(primaryColor);
+    var mainTower = tower.getObjectByName("color-6");
+    mainTower.material.color.setHex(primaryColor);
+    //mainTower.material.emissive.setHex(0x000000);
+    mainTower.material.emissiveIntensity = 0.1;
+    mainTower.material.roughness = 0.1;
     //tower.getObjectByName('color-7').material.color.setHex(0x00ff00);
     //tower.children[4].material.color.setHex(0x00ff00); //fffdd1 #F9E7CE 0xffcccb
     //tower.children[13].material.color.setHex(0xC7A878); //fffdd1 #F9E7CE 0xffcccb #C7A878
- 
-    
-    for(var i = 0; i < 14 ; i++){
-      
-      if(tower.children[i].name != 'color-6')tower.children[i].material.color.setHex(
-        primaryColor);
-      
+
+    for (var i = 0; i < 14; i++) {
+      if (tower.children[i].name != "color-6")
+        tower.children[i].material.color.setHex(primaryColor);
     }
-    tower.getObjectByName('color').material.color.setHex(0xC791B0);
-    tower.getObjectByName('color-2').material.color.setHex(0xC791B0);
-    tower.getObjectByName('color-3').material.color.setHex(0xC791B0);
-    tower.getObjectByName('color-5').material.color.setHex(0xC791B0);
-   
+    tower.getObjectByName("color").material.color.setHex(0xc791b0);
+    tower.getObjectByName("color-2").material.color.setHex(0xc791b0);
+    tower.getObjectByName("color-3").material.color.setHex(0xc791b0);
+    tower.getObjectByName("color-5").material.color.setHex(0xc791b0);
+
     console.log(tower);
     scene.add(tower);
   });
@@ -89,7 +91,6 @@
     scene.add(logo);
   });
 
-
   camera.position.z = 30;
 
   function onWindowResize() {
@@ -108,9 +109,9 @@
 
   var animate = function (time) {
     requestAnimationFrame(animate);
-    
-    if(tower)  tower.rotation.y += 0.0005;
-    if(logo)  logo.rotation.y += 0.0015;
+
+    if (tower) tower.rotation.y += 0.0005;
+    if (logo) logo.rotation.y += 0.0015;
     renderer.render(scene, camera);
   };
 
