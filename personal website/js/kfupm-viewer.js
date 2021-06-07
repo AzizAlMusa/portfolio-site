@@ -119,8 +119,13 @@
 });
 tween.easing(TWEEN.Easing.Cubic.Out);
 
-tween.start();
- 
+
+
+$(window).scroll(function () {
+  if ($.scrollify.current().attr("id") == "kfupm-section") {
+    tween.start();
+  }
+});
   var animate = function (time) {
     requestAnimationFrame(animate);
 
