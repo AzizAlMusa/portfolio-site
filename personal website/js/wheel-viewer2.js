@@ -173,7 +173,7 @@ scene.add(PointLight2);
   camera.position.x = 0;
   camera.position.y = 0;
   //scene.add(particle);
-  //var wheelInView = true;
+  var wheelInView = false;
 
   $(window).scroll(function () {
     if ($.scrollify.current().attr("id") == "hook-section") {
