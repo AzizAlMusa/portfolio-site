@@ -260,9 +260,10 @@ function smoothIntro(){
     if (wheel) {
       wheel.rotation.z += 0.0015;
       wheel.position.y = 3 + 0.1 * Math.sin(0.002 * time);
+      smoothIntro();
     }
 
-      smoothIntro();
+     
     
   };
 

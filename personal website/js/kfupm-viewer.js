@@ -37,7 +37,7 @@
   pointLight2.position.set(-20, 20, 5);
   //scene.add(pointLight2);
 
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  //const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
   ///////////////////MODEL/////////////////////////////
 
