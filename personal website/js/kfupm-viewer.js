@@ -45,7 +45,6 @@
   var loader = new THREE.GLTFLoader();
   //url + "model/kfupm/kfupm_tower.gltf"
   loader.load(url + "model/kfupm/kfupm_tower.gltf", function (gltf) {
-    console.log(gltf);
     tower = gltf.scene.children[0].children[0].children[0];
     var scale = 10;
     tower.scale.set(scale, scale, scale);
@@ -71,12 +70,10 @@
     tower.getObjectByName("color-3").material.color.setHex(0xc791b0);
     tower.getObjectByName("color-5").material.color.setHex(0xc791b0);
 
-    console.log(tower);
     scene.add(tower);
   });
 
   loader.load(url + "model/kfupm/kfupm_logo.gltf", function (gltf) {
-    console.log(gltf);
     logo = gltf.scene.children[0].children[0].children[0];
     var scale = 80;
     logo.scale.set(scale, scale, scale);
@@ -87,7 +84,7 @@
 
     //tower.children[4].material.color.setHex(0x00ff00); //fffdd1 #F9E7CE 0xffcccb
     //tower.children[13].material.color.setHex(0xC7A878); //fffdd1 #F9E7CE 0xffcccb #C7A878
-    console.log(logo);
+
     scene.add(logo);
   });
 
