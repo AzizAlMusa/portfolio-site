@@ -204,8 +204,12 @@ scene.add(PointLight2);
   var positionPhone = { x: 6, z: 20, th: THREE.MathUtils.degToRad(20) };
   var targetPhone = { x: -1, z: -15, th: THREE.MathUtils.degToRad(20) };
   // }
-  var tween = new TWEEN.Tween(position).to(target, 6000);
-  var tweenPhone = new TWEEN.Tween(positionPhone).to(targetPhone, 6000);
+  var wheelGroup = new TWEEN.Group();
+  var tween = new TWEEN.Tween(position, wheelGroup).to(target, 6000);
+  var tweenPhone = new TWEEN.Tween(positionPhone, wheelGroup).to(
+    targetPhone,
+    6000
+  );
 
   tween.onUpdate(function () {
     if (window.innerWidth > SCREEN_CUTOFF) {
@@ -253,7 +257,7 @@ scene.add(PointLight2);
       wheel.rotation.z += 0.0015;
       wheel.position.y = 3 + 0.1 * Math.sin(0.002 * time);
       //smoothIntro();
-      TWEEN.update();
+      wheelGroup.update();
 
       if (animationDone) {
         if (window.innerWidth <= SCREEN_CUTOFF) {

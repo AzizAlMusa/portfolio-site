@@ -105,8 +105,9 @@
   window.addEventListener("resize", onWindowResize, false);
 
   var position = { x: 80, y: -900, th: 0 };
-  var target = { x: 80, y: -400, th: Math.PI * 4 };
-  var tween = new TWEEN.Tween(position).to(target, 6000);
+  var target = { x: 80, y: -450, th: Math.PI * 4 };
+  var kfupmGroup = new TWEEN.Group();
+  var tween = new TWEEN.Tween(position, kfupmGroup).to(target, 6000);
   tween.onUpdate(function () {
     tower.position.x = position.x;
     tower.position.y = position.y;
@@ -119,14 +120,17 @@
       tween.start();
     }
   });
+
   var animate = function (time) {
     requestAnimationFrame(animate);
 
     if (tower) {
       tower.rotation.y += 0.0005;
-      TWEEN.update();
+      kfupmGroup.update();
     }
+
     if (logo) logo.rotation.y += 0.0015;
+
     renderer.render(scene, camera);
   };
 
