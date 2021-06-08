@@ -4,6 +4,7 @@ import {
 } from "https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site@master/personal%20website/js/Lensflare.js";
 
 (function () {
+  //url = "";
   var scene = new THREE.Scene();
   //scene.background = new THREE.Color(0x000000);
   var camera = new THREE.PerspectiveCamera(
@@ -173,14 +174,14 @@ scene.add(PointLight2);
   camera.position.x = 0;
   camera.position.y = 0;
   //scene.add(particle);
-  var wheelInView = false;
-
+  //var wheelInView = false;
+  /*
   $(window).scroll(function () {
     if ($.scrollify.current().attr("id") == "hook-section") {
       wheelInView = true;
     }
   });
-
+ */
   function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -192,56 +193,54 @@ scene.add(PointLight2);
   }
   window.addEventListener("resize", onWindowResize, false);
   var animationDone = false;
-  function smoothIntro() {
-    //once scrolled to the wheel model's div
-    const SCREEN_CUTOFF = 991;
-    var zTarget;
-    var xTarget;
 
-    if (wheelInView) {
-      //when we a pc screen
-      if (window.innerWidth > SCREEN_CUTOFF) {
-        zTarget = -10; //target to for the wheel to move into
-        xTarget = 6;
-        wheel.rotation.y = THREE.MathUtils.degToRad(10); //default orientation for PC screen
+  //wheel.rotation.y = THREE.MathUtils.degToRad(20);
 
-        const animationSteps = 350; //experimentally found this to be a smooth speed
-        const zIncrement = (20 - zTarget) / animationSteps; //20 is its initial state
-        //animate until zTarget is reached with the increment speed
-        if (wheel.position.z > zTarget && !animationDone)
-          wheel.position.z -= zIncrement;
-        //in case we have already completed animated (after resizing for example)
-        else {
-          animationDone = true;
-          wheel.position.z = zTarget; //set to target
-          wheel.position.x = xTarget; //adjust in case resized from mobile view
-        }
-      } else if (window.innerWidth <= SCREEN_CUTOFF) {
-        zTarget = -15;
-        xTarget = -1;
+  const SCREEN_CUTOFF = 991;
+  // if (window.innerWidth > SCREEN_CUTOFF) {
+  var position = { x: 6, z: 20, th: THREE.MathUtils.degToRad(10) };
+  var target = { x: 6, z: -10, th: THREE.MathUtils.degToRad(10) };
+  // } else if (window.innerWidth <= SCREEN_CUTOFF) {
+  var positionPhone = { x: 6, z: 20, th: THREE.MathUtils.degToRad(20) };
+  var targetPhone = { x: -1, z: -15, th: THREE.MathUtils.degToRad(20) };
+  // }
+  var tween = new TWEEN.Tween(position).to(target, 6000);
+  var tweenPhone = new TWEEN.Tween(positionPhone).to(targetPhone, 6000);
 
-        const animationSteps = 350; //experimentally found this to be a smooth speed
-        const zIncrement = (20 - zTarget) / animationSteps; //20 is its initial state
-        const xIncrement = (6 - xTarget) / animationSteps; //6 is its initial State
-        wheel.rotation.y = THREE.MathUtils.degToRad(20);
-
-        if (
-          wheel.position.z > zTarget &&
-          wheel.position.x > xTarget &&
-          !animationDone
-        ) {
-          wheel.position.z -= zIncrement;
-          wheel.position.x -= xIncrement;
-        } else {
-          animationDone = true;
-          wheel.position.z = zTarget;
-          wheel.position.x = xTarget;
-        }
-
-        console.log(wheel.position.x);
-      }
+  tween.onUpdate(function () {
+    if (window.innerWidth > SCREEN_CUTOFF) {
+      wheel.position.x = position.x;
+      wheel.position.z = position.z;
+      wheel.rotation.y = position.th;
     }
-  }
+  });
+
+  tweenPhone.onUpdate(function () {
+    if (window.innerWidth <= SCREEN_CUTOFF) {
+      wheel.position.x = positionPhone.x;
+      wheel.position.z = positionPhone.z;
+      wheel.rotation.y = positionPhone.th;
+    }
+  });
+
+  tween.easing(TWEEN.Easing.Cubic.Out);
+  tweenPhone.easing(TWEEN.Easing.Cubic.Out);
+
+  tween.onComplete(function () {
+    animationDone = true;
+  });
+
+  tweenPhone.onComplete(function () {
+    animationDone = true;
+  });
+
+  $(window).scroll(function () {
+    if ($.scrollify.current().attr("id") == "hook-section") {
+      tween.start();
+      tweenPhone.start();
+    }
+  });
+
   var animate = function (time) {
     requestAnimationFrame(animate);
     //controls.update();
@@ -253,11 +252,21 @@ scene.add(PointLight2);
     if (wheel) {
       wheel.rotation.z += 0.0015;
       wheel.position.y = 3 + 0.1 * Math.sin(0.002 * time);
-      smoothIntro();
-    }
+      //smoothIntro();
+      TWEEN.update();
 
-     
-    
+      if (animationDone) {
+        if (window.innerWidth <= SCREEN_CUTOFF) {
+          wheel.position.x = targetPhone.x;
+          wheel.position.z = targetPhone.z;
+          wheel.rotation.y = targetPhone.th;
+        } else if (window.innerWidth > SCREEN_CUTOFF) {
+          wheel.position.x = target.x;
+          wheel.position.z = target.z;
+          wheel.rotation.y = target.th;
+        }
+      }
+    }
   };
 
   animate();
