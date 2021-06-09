@@ -1,5 +1,5 @@
 (function () {
-  //url = "";
+  url = "";
   var scene = new THREE.Scene();
   var renderer = new THREE.WebGLRenderer({ alpha: true });
 
@@ -53,10 +53,23 @@
     tower.position.x = 80;
     var primaryColor = 0xb68e78;
     var mainTower = tower.getObjectByName("color-6");
+
     mainTower.material.color.setHex(primaryColor);
     //mainTower.material.emissive.setHex(0x000000);
     mainTower.material.emissiveIntensity = 0.1;
     mainTower.material.roughness = 0.1;
+    /*
+    let materialPoints = new THREE.MeshStandardMaterial({
+      color: 0x00ff00,
+      wireframe: true
+    });
+    let geo = mainTower.geometry;
+
+    var towerPoints = new THREE.Mesh(geo, materialPoints);
+    towerPoints.position.y -= 45;
+    towerPoints.position.x -= 15;
+    scene.add(towerPoints);
+    */
     //tower.getObjectByName('color-7').material.color.setHex(0x00ff00);
     //tower.children[4].material.color.setHex(0x00ff00); //fffdd1 #F9E7CE 0xffcccb
     //tower.children[13].material.color.setHex(0xC7A878); //fffdd1 #F9E7CE 0xffcccb #C7A878
@@ -109,7 +122,7 @@
   var kfupmGroup = new TWEEN.Group();
   var tween = new TWEEN.Tween(position, kfupmGroup).to(target, 6000);
   tween.onUpdate(function () {
-    tower.position.x = position.x;
+    //tower.position.x = position.x;
     tower.position.y = position.y;
     tower.rotation.y = position.th;
   });
@@ -121,6 +134,12 @@
     }
   });
 
+  window.addEventListener("wheel", onMouseWheel, false);
+  function onMouseWheel(event) {
+    tower.position.x += event.deltaY / 1.5;
+    logo.position.x -= event.deltaY / 3;
+  }
+  tween.start();
   var animate = function (time) {
     requestAnimationFrame(animate);
 
@@ -136,3 +155,5 @@
 
   animate();
 })();
+
+//$.scrollify.disable()
