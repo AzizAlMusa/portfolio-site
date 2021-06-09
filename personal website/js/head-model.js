@@ -62,6 +62,7 @@
   ///////////////////MODEL/////////////////////////////
 
   var loader = new THREE.GLTFLoader();
+  
   loader.load(
     url + "model/shmagh.glb",
     function (gltf) {
@@ -73,7 +74,7 @@
       let material = new THREE.PointsMaterial({ color: 0xffffff, size: 0.02 });
 
       scan = new THREE.Points(mesh.geometry, material);
-      console.log(scan);
+      
 
       scan.scale.set(scale, scale, scale);
       scan.rotation.x = -Math.PI / 2;

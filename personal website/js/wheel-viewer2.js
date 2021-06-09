@@ -1,8 +1,8 @@
-import {
+/*import {
   Lensflare,
   LensflareElement
 } from "https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site@master/personal%20website/js/Lensflare.js";
-
+*/
 (function () {
   //url = "";
   var scene = new THREE.Scene();
@@ -13,7 +13,8 @@ import {
     0.1,
     1000
   );
-  console.log(camera);
+
+  
   //camera.lookAt(0, 0, 0);
   var renderer = new THREE.WebGLRenderer({ alpha: true });
   //renderer.gammaOutput = true;
@@ -130,12 +131,12 @@ scene.add(PointLight2);
     textureCube.encoding = THREE.sRGBEncoding;
     //scene.background = textureCube;
 
-    console.log(wheel);
+
     wheel.traverse(mesh => {
       if (!mesh.isMesh) return;
 
       if (mesh.name == "blue_high_gloss_plastic") {
-        console.log("MESH");
+     
         // mesh.material.map = loader.load("model/wheel_Texture_0001.png");
 
         mesh.material.color.setHex(0x2c2cd1);
@@ -145,7 +146,7 @@ scene.add(PointLight2);
       }
 
       if (mesh.name == "mesh_1" || mesh.name == "mesh_2") {
-        console.log("MESH");
+
         // mesh.material.map = loader.load("model/wheel_Texture_0001.png");
         //mesh.material.roughness = 0.1;
         //mesh.material.color.setHex(0xff00000);
@@ -239,7 +240,8 @@ scene.add(PointLight2);
   });
 
   $(window).scroll(function () {
-    if ($.scrollify.current().attr("id") == "hook-section") {
+    console.log($.scrollify.current());
+    if ($.scrollify.current().attr("id") == "wheel-viewer") {
       tween.start();
       tweenPhone.start();
     }

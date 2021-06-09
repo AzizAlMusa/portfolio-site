@@ -1,5 +1,7 @@
+//forcing this script file to have local scope
 (function () {
   url = "";
+
   var scene = new THREE.Scene();
   var renderer = new THREE.WebGLRenderer({ alpha: true });
 
@@ -41,9 +43,11 @@
   //const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
   ///////////////////MODEL/////////////////////////////
-
+  const towerPosition = {x:80 , y: -450 ,z: -300};
+  const logoPosition = {x:0 , y: -20 ,z: -100};
   var loader = new THREE.GLTFLoader();
   //url + "model/kfupm/kfupm_tower.gltf"
+
   loader.load(url + "model/kfupm/kfupm_tower.gltf", function (gltf) {
     tower = gltf.scene.children[0].children[0].children[0];
     var scale = 10;
@@ -111,6 +115,7 @@
     camera.aspect = portWidth / portHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(portWidth, portHeight);
+    $.scrollify.update();
   }
 
   // UNIVERSE STUFF
@@ -128,17 +133,51 @@
   });
   tween.easing(TWEEN.Easing.Cubic.Out);
 
+  //start the animation once we have scrolled into the kfupm section
   $(window).scroll(function () {
     if ($.scrollify.current().attr("id") == "kfupm-section") {
       tween.start();
     }
-  });
 
-  window.addEventListener("wheel", onMouseWheel, false);
+    if ($.scrollify.current().attr("id") == "kfupm-viewer") {
+      $.scrollify.disable();
+    }
+    
+  });
+   
+  document.getElementById("kfupm-viewer").addEventListener("wheel", onMouseWheel, false); //mouse scroll wheel driven animation listener
+  //mouse scroll wheel driven animation handling
+  
   function onMouseWheel(event) {
-    tower.position.x += event.deltaY / 1.5;
-    logo.position.x -= event.deltaY / 3;
+    if($.scrollify.current().attr("id") == "kfupm-viewer"){
+    console.log("scrolling in element fired");
+    var moveForward = ((tower.position.x < 1000 || logo.position.x > -1000) && event.deltaY > 0);
+    var moveBackward = (tower.position.x >  towerPosition.x && logo.position.x < logoPosition.x && event.deltaY < 0)
+  
+      if(Math.round(tower.position.x) ==  towerPosition.x && Math.round(logo.position.x) == logoPosition.x && event.deltaY < 0){
+        console.log("going up");
+        $.scrollify.enable();
+        $.scrollify.previous();
+        
+      } 
+
+      else if(Math.round(tower.position.x) >= 1000 && Math.round(logo.position.x) <= -1000 && event.deltaY > 0){
+        console.log("going down");
+        $.scrollify.enable();
+        $.scrollify.next();
+        
+      }
+
+      else if (moveForward ||  moveBackward){
+        $.scrollify.disable();
+        tower.position.x = Math.max(tower.position.x + event.deltaY / 1.5, towerPosition.x);
+        logo.position.x = Math.min(logo.position.x - event.deltaY / 3.0, logoPosition.x );
+      }
+    }
+   console.log($.scrollify.isDisabled());
+ 
   }
+
   tween.start();
   var animate = function (time) {
     requestAnimationFrame(animate);
