@@ -117,11 +117,11 @@
     renderer.setSize(portWidth, portHeight);
     $.scrollify.update();
   }
-
-  // UNIVERSE STUFF
-
   window.addEventListener("resize", onWindowResize, false);
 
+
+ 
+ //TWEENING
   var position = { x: 80, y: -900, th: 0 };
   var target = { x: 80, y: -450, th: Math.PI * 4 };
   var kfupmGroup = new TWEEN.Group();
@@ -132,53 +132,109 @@
     tower.rotation.y = position.th;
   });
   tween.easing(TWEEN.Easing.Cubic.Out);
-
+  
+  var entranceAnimationDone = false;
   //start the animation once we have scrolled into the kfupm section
   $(window).scroll(function () {
-    if ($.scrollify.current().attr("id") == "kfupm-section") {
+ 
+    if ($.scrollify.current().attr("id") == "kfupm-section" && !entranceAnimationDone) {
       tween.start();
+      entranceAnimationDone = true;
     }
 
-    if ($.scrollify.current().attr("id") == "kfupm-viewer") {
+    if ($.scrollify.current().attr("id") == "kfupm-viewer" && !entranceAnimationDone)  {
+      tween.start();
       $.scrollify.disable();
+      entranceAnimationDone = true;
     }
     
   });
    
-  document.getElementById("kfupm-viewer").addEventListener("wheel", onMouseWheel, false); //mouse scroll wheel driven animation listener
+  document.getElementById("kfupm-viewer").addEventListener("wheel", onMouseWheel, false); //mouse scroll wheel driven animation listener 
   //mouse scroll wheel driven animation handling
-  
+  document.getElementById("model-viewer").addEventListener("wheel", check, false);
+
+ function check(){
+   //console.log("head model wheel");
+ }
+ var forwardAnimationDone = false;
+ var backwardAnimationDone = false;
   function onMouseWheel(event) {
+    event.preventDefault();
     if($.scrollify.current().attr("id") == "kfupm-viewer"){
-    console.log("scrolling in element fired");
-    var moveForward = ((tower.position.x < 1000 || logo.position.x > -1000) && event.deltaY > 0);
-    var moveBackward = (tower.position.x >  towerPosition.x && logo.position.x < logoPosition.x && event.deltaY < 0)
-  
-      if(Math.round(tower.position.x) ==  towerPosition.x && Math.round(logo.position.x) == logoPosition.x && event.deltaY < 0){
-        console.log("going up");
-        $.scrollify.enable();
-        $.scrollify.previous();
-        
-      } 
+      
+   
+      var moveForward = ((tower.position.x < 1000 || logo.position.x > -1000) && event.deltaY > 0);
+      var moveBackward = (tower.position.x >  towerPosition.x && logo.position.x < logoPosition.x && event.deltaY < 0)
+    
+        if(Math.round(tower.position.x) ==  towerPosition.x && Math.round(logo.position.x) == logoPosition.x && event.deltaY < 0){
+          console.log("going up");
+          $.scrollify.enable();
+          $.scrollify.previous();
+          
+        } 
 
-      else if(Math.round(tower.position.x) >= 1000 && Math.round(logo.position.x) <= -1000 && event.deltaY > 0){
-        console.log("going down");
-        $.scrollify.enable();
-        $.scrollify.next();
+        else if(Math.round(tower.position.x) >= 1000 && Math.round(logo.position.x) <= -1000 && event.deltaY > 0){
+          console.log("going down");
+          $.scrollify.enable();
+          $.scrollify.next();
+          
+        }
         
-      }
+        /*
+        else if (moveForward ||  moveBackward){
+          $.scrollify.disable();
+          
+          tower.position.x = Math.max(tower.position.x + event.deltaY / 1.5, towerPosition.x);
+          logo.position.x = Math.min(logo.position.x - event.deltaY / 3.0, logoPosition.x );
+        }
+        */
 
-      else if (moveForward ||  moveBackward){
-        $.scrollify.disable();
-        tower.position.x = Math.max(tower.position.x + event.deltaY / 1.5, towerPosition.x);
-        logo.position.x = Math.min(logo.position.x - event.deltaY / 3.0, logoPosition.x );
+        else if (moveForward){
+          $.scrollify.disable();
+          var position = { xTower: 80, xLogo: 0};
+          var target = { xTower: 1000, xLogo: -1000};
+          var tween = new TWEEN.Tween(position, kfupmGroup).to(target, 1000);
+          tween.onUpdate(function () {
+            //tower.position.x = position.x;
+            tower.position.x = position.xTower;
+            logo.position.x = position.xLogo;
+          });
+          tween.easing(TWEEN.Easing.Cubic.Out);
+          if (!forwardAnimationDone) {
+            tween.start();
+            console.log(forwardAnimationDone);
+            forwardAnimationDone = true;
+            backwardAnimationDone = false;
+            console.log(forwardAnimationDone);
+          }
+        }
+
+        else if (moveBackward){
+          $.scrollify.disable();
+          var position = { xTower: 1000, xLogo: -1000};
+          var target = { xTower: 80, xLogo: 0};
+          var tween = new TWEEN.Tween(position, kfupmGroup).to(target, 1000);
+          tween.onUpdate(function () {
+            //tower.position.x = position.x;
+            tower.position.x = position.xTower;
+            logo.position.x = position.xLogo;
+          });
+          tween.easing(TWEEN.Easing.Cubic.Out);
+          if (!backwardAnimationDone){
+            tween.start();
+            console.log("the backward one is running??!?!?")
+            forwardAnimationDone = false;
+            backwardAnimationDone = true;
+          }
+          
+        }
       }
-    }
-   console.log($.scrollify.isDisabled());
+   //console.log($.scrollify.isDisabled());
  
   }
 
-  tween.start();
+ 
   var animate = function (time) {
     requestAnimationFrame(animate);
 
