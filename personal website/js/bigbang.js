@@ -68,7 +68,7 @@
     for (i = 0; i < starGeo.attributes.position.count; i++) {
       var p = starGeo.attributes.position.getY(i);
 
-      if (velocities[i] <= 15) velocities[i] += acceleration;
+      if (velocitiebs[i] <= 15) velocities[i] += acceleration;
 
       starGeo.attributes.position.setY(i, p - velocities[i]);
 
