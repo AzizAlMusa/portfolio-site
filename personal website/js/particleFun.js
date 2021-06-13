@@ -1,6 +1,7 @@
 //forcing this script file to have local scope
 var glslify = require("glslify");
-var scene = new THREE.Scene({ color: 0x000000 });
+var scene = new THREE.Scene();
+
 var renderer = new THREE.WebGLRenderer();
 var camera = new THREE.PerspectiveCamera(
   75,
@@ -8,16 +9,21 @@ var camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-
+/*
 const viewerName = "universe-viewer";
-var portWidth = $("#" + viewerName).width();
-var portHeight = $("#" + viewerName).height();
+console.log("#universe-viewer");
+var portWidth = $("#universe-viewer").width();
+var portHeight = $("#universe-viewer").height();
 renderer.setSize(portWidth, portHeight);
 camera.aspect = portWidth / portHeight;
 camera.updateProjectionMatrix();
-document.getElementById(viewerName).appendChild(renderer.domElement);
-
+document.getElementById("universe-viewer").appendChild(renderer.domElement);
+*/
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 let width, height, numPoints, texture;
+
 const loader = new THREE.TextureLoader();
 loader.load("img/golfball.jpg", loadedTexture => {
   console.log(loadedTexture);
@@ -26,13 +32,17 @@ loader.load("img/golfball.jpg", loadedTexture => {
   height = texture.image.height;
   numPoints = width * height;
 });
+
 /*
+var light = new THREE.AmbientLight();
 
+scene.add(light);
 */
-
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
+camera.position.z = 5;
+//const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 //CUSTOM CODE STARTS HERE
+
 const geometry = new THREE.InstancedBufferGeometry();
 
 // positions
@@ -93,7 +103,7 @@ const uniforms = {
 };
 
 //var src = glslify.file('./')
-console.log(glslify);
+
 const material = new THREE.RawShaderMaterial({
   uniforms,
   vertexShader: glslify("../texture/particle.vert"),
@@ -102,10 +112,17 @@ const material = new THREE.RawShaderMaterial({
   transparent: true
 });
 
-var animate = function (time) {
+let myObject = new THREE.Object3D();
+
+let mesh = new THREE.Mesh(geometry, material);
+myObject.add(mesh);
+
+scene.add(myObject);
+
+var animate = function () {
   requestAnimationFrame(animate);
 
   renderer.render(scene, camera);
-
-  animate();
 };
+
+animate();
