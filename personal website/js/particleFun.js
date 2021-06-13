@@ -1,5 +1,5 @@
 //forcing this script file to have local scope
-const glslify = require("glslify");
+var glslify = require("glslify");
 var scene = new THREE.Scene({ color: 0x000000 });
 var renderer = new THREE.WebGLRenderer();
 var camera = new THREE.PerspectiveCamera(
@@ -18,18 +18,17 @@ camera.updateProjectionMatrix();
 document.getElementById(viewerName).appendChild(renderer.domElement);
 
 let width, height, numPoints, texture;
-const loader = new THREE.TextureLoader()
-loader.load('img/golfball.jpg', (loadedTexture) => {
+const loader = new THREE.TextureLoader();
+loader.load("img/golfball.jpg", loadedTexture => {
   console.log(loadedTexture);
   texture = loadedTexture;
   width = texture.image.width;
   height = texture.image.height;
-  numPoints = width*height;
+  numPoints = width * height;
 });
 /*
 
 */
-
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
@@ -84,25 +83,24 @@ geometry.setAttribute(
 );
 
 const uniforms = {
-	uTime: { value: 0 },
-	uRandom: { value: 1.0 },
-	uDepth: { value: 2.0 },
-	uSize: { value: 0.0 },
-	uTextureSize: { value: new THREE.Vector2(width, height) },
-	uTexture: { value: texture },
-	uTouch: { value: null }
+  uTime: { value: 0 },
+  uRandom: { value: 1.0 },
+  uDepth: { value: 2.0 },
+  uSize: { value: 0.0 },
+  uTextureSize: { value: new THREE.Vector2(width, height) },
+  uTexture: { value: texture },
+  uTouch: { value: null }
 };
 
 //var src = glslify.file('./')
 console.log(glslify);
 const material = new THREE.RawShaderMaterial({
-	uniforms,
-	//vertexShader: glslify(require('/texture/particle.vert')),
-	//fragmentShader: glslify(require('/texture/particle.frag')),
-	depthTest: false,
-	transparent: true
+  uniforms,
+  vertexShader: glslify("../texture/particle.vert"),
+  fragmentShader: glslify("../texture/particle.frag"),
+  depthTest: false,
+  transparent: true
 });
-
 
 var animate = function (time) {
   requestAnimationFrame(animate);
