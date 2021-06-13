@@ -17,8 +17,20 @@ camera.aspect = portWidth / portHeight;
 camera.updateProjectionMatrix();
 document.getElementById(viewerName).appendChild(renderer.domElement);
 
-var numPoints = 10 * 10;
-var width = 10;
+let width, height, numPoints, texture;
+const loader = new THREE.TextureLoader()
+loader.load('img/golfball.jpg', (loadedTexture) => {
+  console.log(loadedTexture);
+  texture = loadedTexture;
+  width = texture.image.width;
+  height = texture.image.height;
+  numPoints = width*height;
+});
+/*
+
+*/
+
+
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 //CUSTOM CODE STARTS HERE
@@ -45,9 +57,9 @@ geometry.setIndex(
   new THREE.BufferAttribute(new Uint16Array([0, 2, 1, 2, 3, 1]), 1)
 );
 
-const indices = new Uint16Array(this.numPoints);
-const offsets = new Float32Array(this.numPoints * 3);
-const angles = new Float32Array(this.numPoints);
+const indices = new Uint16Array(numPoints);
+const offsets = new Float32Array(numPoints * 3);
+const angles = new Float32Array(numPoints);
 
 for (let i = 0; i < numPoints; i++) {
   offsets[i * 3 + 0] = i % width;
@@ -70,6 +82,27 @@ geometry.setAttribute(
   "angle",
   new THREE.InstancedBufferAttribute(angles, 1, false)
 );
+
+const uniforms = {
+	uTime: { value: 0 },
+	uRandom: { value: 1.0 },
+	uDepth: { value: 2.0 },
+	uSize: { value: 0.0 },
+	uTextureSize: { value: new THREE.Vector2(width, height) },
+	uTexture: { value: texture },
+	uTouch: { value: null }
+};
+
+//var src = glslify.file('./')
+console.log(glslify);
+const material = new THREE.RawShaderMaterial({
+	uniforms,
+	//vertexShader: glslify(require('/texture/particle.vert')),
+	//fragmentShader: glslify(require('/texture/particle.frag')),
+	depthTest: false,
+	transparent: true
+});
+
 
 var animate = function (time) {
   requestAnimationFrame(animate);
