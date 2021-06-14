@@ -59,6 +59,8 @@ let vertices = new Float32Array([
 
 let geometry = new THREE.BufferGeometry();
 geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+//var geometry = new THREE.SphereGeometry(1, 8, 8);
+
 console.log(geometry)
 /////////////////////////////////////////////
 /////////////////////////////////////////////
@@ -99,7 +101,7 @@ var animate = function () {
   mesh.material.uniforms.delta.value = 0.5 + Math.sin(delta) * 0.5;
   
   for (var i = 0; i < vertexDisplacement.length; i ++) {
-      //vertexDisplacement[i] = 0.5 + Math.sin(i + delta) * 0.25;
+      vertexDisplacement[i] = 5*Math.sin(delta) * 0.25;
   }
   
   mesh.geometry.attributes.vertexDisplacement.needsUpdate = true;
