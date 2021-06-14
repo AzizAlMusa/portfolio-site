@@ -41,6 +41,19 @@ scene.add(sphere);
  sphere.rotation.x += 0.01;
   sphere.rotation.y += 0.01;
 */
+let width, height, numPoints, texture;
+const loader = new THREE.TextureLoader();
+loader.load("img/golfball.jpg", loadedTexture => {
+  console.log(loadedTexture);
+  texture = loadedTexture;
+  width = texture.image.width;
+  height = texture.image.height;
+  numPoints = width * height;
+});
+
+
+
+
 camera.position.z = 10;
 function createPoint(x, y, z){
 
@@ -101,7 +114,7 @@ var animate = function () {
   mesh.material.uniforms.delta.value = 0.5 + Math.sin(delta) * 0.5;
   
   for (var i = 0; i < vertexDisplacement.length; i ++) {
-      vertexDisplacement[i] = 5*Math.sin(delta) * 0.25;
+      vertexDisplacement[i] = 5*Math.sin(i+delta) * 0.25;
   }
   
   mesh.geometry.attributes.vertexDisplacement.needsUpdate = true;
