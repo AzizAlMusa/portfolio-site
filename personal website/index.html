@@ -14,8 +14,9 @@
      <div class="panel" id="wheel-viewer"></div>
     <div class="panel" id="kfupm-viewer"></div>
     <div class="panel" id="model-viewer"></div>
-    <div id="universe-viewer"></div>
+     <div id="universe-viewer"></div>
   -->
+   
 
     <script>
       var prefix = "https://cdn.jsdelivr.net/gh/AzizAlMusa/portfolio-site";
@@ -37,9 +38,46 @@
     <script type="module" src="js/kfupm-viewer.js"></script>
     
     <script type="module" src="bundle.js"></script>
-     <script type="module" src="js/particleFun.js"></script>
+    <script type="module" src="bundle.js"></script>
+    -->
+    <script type="x-shader/x-vertex" id="vertexShader">
+      attribute float vertexDisplacement;
+      uniform float delta;
+      varying float vOpacity;
+      varying vec3 vUv;
 
-     <script
+      void main() 
+      {
+          vUv = position;
+          vOpacity = vertexDisplacement;
+
+          vec3 p = position;
+          p.x += sin(vertexDisplacement) * 5.0;
+          p.y += cos(vertexDisplacement) * 5.0;
+
+        vec4 modelViewPosition = modelViewMatrix * vec4(p, 1.0);
+        gl_Position = projectionMatrix * modelViewPosition;
+      }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentShader">
+      uniform float delta;
+      varying float vOpacity;
+      varying vec3 vUv;
+
+      void main() {
+
+          float r = 1.0 + cos(vUv.x * delta);
+          float g = 0.5 + sin(delta) * 0.5;
+          float b = 0.0;
+          vec3 rgb = vec3(r, g, b);
+
+        gl_FragColor = vec4(rgb, vOpacity);
+      }
+    </script>
+    
+    <script type="module" src="js/shaderTutorial.js"></script>
+    <script
       src="https://cdnjs.cloudflare.com/ajax/libs/scrollify/1.0.21/jquery.scrollify.min.js"
       integrity="sha512-UyX8JsMsNRW1cYl8BoxpcamonpwU2y7mSTsN0Z52plp7oKo1u92Xqfpv6lOlTyH3yiMXK+gU1jw0DVCsPTfKew=="
       crossorigin="anonymous"
@@ -51,7 +89,7 @@
         });
       });
     </script>
-    -->
-    <script src="bundle.js"></script>
+
+
   </body>
 </html>

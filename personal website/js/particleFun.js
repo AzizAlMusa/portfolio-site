@@ -1,5 +1,5 @@
 //forcing this script file to have local scope
-var glslify = require("glslify");
+//var glslify = require("glslify");
 var scene = new THREE.Scene();
 
 var renderer = new THREE.WebGLRenderer();
@@ -106,8 +106,8 @@ const uniforms = {
 
 const material = new THREE.RawShaderMaterial({
   uniforms,
-  vertexShader: glslify("../texture/particle.vert"),
-  fragmentShader: glslify("../texture/particle.frag"),
+  vertexShader: glslify(document.getElementById('vertexShader').textContent), //glslify(require('../texture/particle.vert')),
+  fragmentShader: glslify(document.getElementById('fragmentShader').textContent),//glslify(require('../texture/particle.frag')),
   depthTest: false,
   transparent: true
 });
