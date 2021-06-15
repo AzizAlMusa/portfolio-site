@@ -42,7 +42,11 @@
     -->
     <script type="x-shader/x-vertex" id="vertexShader">
       attribute float vertexDisplacement;
+
       uniform float delta;
+      uniform sampler2D uTexture;
+      uniform vec2 uTextureSize;
+      
       varying float vOpacity;
       varying vec3 vUv;
 

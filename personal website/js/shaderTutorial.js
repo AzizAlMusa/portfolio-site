@@ -41,7 +41,8 @@ scene.add(sphere);
  sphere.rotation.x += 0.01;
   sphere.rotation.y += 0.01;
 */
-let width, height, numPoints, texture;
+var width = 0;
+var height, numPoints, texture;
 const loader = new THREE.TextureLoader();
 loader.load("img/golfball.jpg", loadedTexture => {
   console.log(loadedTexture);
@@ -49,7 +50,22 @@ loader.load("img/golfball.jpg", loadedTexture => {
   width = texture.image.width;
   height = texture.image.height;
   numPoints = width * height;
+
+ 
 });
+
+
+console.log(texture);
+
+var test = 'start';
+
+function end() {
+    test = 'end';
+    test = 'local';
+}
+
+end();
+alert(test);
 
 
 
@@ -70,15 +86,79 @@ let vertices = new Float32Array([
   0,  2, 0,
 ]);
 
-let geometry = new THREE.BufferGeometry();
-geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+//let geometry = new THREE.BufferGeometry();
+//geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
 //var geometry = new THREE.SphereGeometry(1, 8, 8);
 
-console.log(geometry)
+//console.log(geometry)
+
+
+///////////////////////////////////////////
+///////////// INJECTED CODE ///////////////
+///////////////////////////////////////////
+
+const geometry = new THREE.InstancedBufferGeometry();
+
+// positions
+const positions = new THREE.BufferAttribute(new Float32Array(4 * 3), 3);
+positions.setXYZ(0, -0.5, 0.5, 0.0);
+positions.setXYZ(1, 0.5, 0.5, 0.0);
+positions.setXYZ(2, -0.5, -0.5, 0.0);
+positions.setXYZ(3, 0.5, -0.5, 0.0);
+geometry.setAttribute("position", positions);
+
+// uvs
+const uvs = new THREE.BufferAttribute(new Float32Array(4 * 2), 2);
+uvs.setXYZ(0, 0.0, 0.0);
+uvs.setXYZ(1, 1.0, 0.0);
+uvs.setXYZ(2, 0.0, 1.0);
+uvs.setXYZ(3, 1.0, 1.0);
+geometry.setAttribute("uv", uvs);
+
+// index
+geometry.setIndex(
+  new THREE.BufferAttribute(new Uint16Array([0, 2, 1, 2, 3, 1]), 1)
+);
+
+const indices = new Uint16Array(numPoints);
+const offsets = new Float32Array(numPoints * 3);
+const angles = new Float32Array(numPoints);
+
+
+for (let i = 0; i < numPoints; i++) {
+  offsets[i * 3 + 0] = i % width;
+  offsets[i * 3 + 1] = Math.floor(i / width); 
+
+ 
+  indices[i] = i;
+
+  angles[i] = Math.random() * Math.PI;
+ 
+}
+
+
+
+geometry.setAttribute(
+  "pindex",
+  new THREE.InstancedBufferAttribute(indices, 1, false)
+);
+geometry.setAttribute(
+  "offset",
+  new THREE.InstancedBufferAttribute(offsets, 3, false)
+);
+geometry.setAttribute(
+  "angle",
+  new THREE.InstancedBufferAttribute(angles, 1, false)
+);
+
+
+
 /////////////////////////////////////////////
 /////////////////////////////////////////////
 var customUniforms = {
-	delta: {value: 0}
+	delta: {value: 0},
+    uTexture: {value: texture},
+    uTextureSize: {value: new THREE.Vector2(width, height)}
 };
 
 var shaderMat = new THREE.ShaderMaterial({
@@ -114,11 +194,11 @@ var animate = function () {
   mesh.material.uniforms.delta.value = 0.5 + Math.sin(delta) * 0.5;
   
   for (var i = 0; i < vertexDisplacement.length; i ++) {
-      vertexDisplacement[i] = 5*Math.sin(i+delta) * 0.25;
+      vertexDisplacement[i] = 5*Math.sin(delta) * 0.25;
   }
   
   mesh.geometry.attributes.vertexDisplacement.needsUpdate = true;
-
+ 
   renderer.render(scene, camera);
 };
 
